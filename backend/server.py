@@ -34,30 +34,46 @@ def insert():
 		new_data['time']=str(date)
 	
 	except:
-		return 'file error', 403
+		return 'param  error', 403
 	file = get_file()
 	file.append(new_data)
 	set_file(file)
 	return "OK", 200
 
-@app.route('/api/tasks/<id>', methods=['DELETE'])
+@app.route('/api/tasks/<id>', methods=['DELETE'], strict_slashes=False)
 def delete_by_id(id=None):
-    file = get_file()
-    for item in file:
-        if id == item['id']:
-            file.remove(item)
-            set_file(file)
-            return 'OK', 200
-    return 'id不存在：id=%s ' % (id), 404
+	file = get_file()
+	for item in file:
+		if id == item['id']:
+			file.remove(item)
+			set_file(file)
+			return 'OK', 200
+	return 'id不存在：id=%s ' % (id), 404
 	
-@app.route('/api/tasks/<id>', methods=['GET'])
+@app.route('/api/tasks/<id>', methods=['GET'], strict_slashes=False)
 def query_by_id(id=None):
-    # 返回一个指定ID的Todo任务
-    file = get_file()
-    for item in file:
-        if id == item['id']:
-            return jsonify(item), 200
-    return 'id不存在：id=%s' % (id), 404
+	# 返回一个指定ID的Todo任务
+	file = get_file()
+	for item in file:
+		if id == item['id']:
+			return jsonify(item), 200
+	return 'id不存在：id=%s' % (id), 404
+	
+@app.route('/api/tasks/', methods=['PUT'], strict_slashes=False)
+def change( ):
+	# 修改content
+	new_data = str(request.get_data(), encoding='utf-8')
+	try:
+		new_data = json.loads(new_data)
+	except:
+		return 'param  error', 403
+	file = get_file()
+	for item in file:
+		if new_data['id'] == item['id']:
+			item['content'] = new_data['content']
+			set_file(file)
+			return "OK", 200
+	return 'id不存在：id=%s' % (id), 404
 	
 if __name__ == '__main__':
 	# 将debug = True可在debug模式中自动重启服务
