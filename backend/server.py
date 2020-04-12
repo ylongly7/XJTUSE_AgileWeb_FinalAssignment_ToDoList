@@ -26,6 +26,7 @@ def query_all():
 def insert():
 	# 创建一个新的Todo任务
 	new_data = str(request.get_data(), encoding='utf-8')
+	print(new_data)
 	try:
 		new_data = json.loads(new_data)
 		ti = time.time()
@@ -38,7 +39,8 @@ def insert():
 	file = get_file()
 	file.append(new_data)
 	set_file(file)
-	return "OK", 200
+	data = get_file()
+	return jsonify(data), 200
 
 @app.route('/api/tasks/<id>', methods=['DELETE'], strict_slashes=False)
 def delete_by_id(id=None):
@@ -47,7 +49,8 @@ def delete_by_id(id=None):
 		if id == item['id']:
 			file.remove(item)
 			set_file(file)
-			return 'OK', 200
+			data = get_file()
+			return jsonify(data), 200
 	return 'id不存在：id=%s ' % (id), 404
 	
 @app.route('/api/tasks/<id>', methods=['GET'], strict_slashes=False)
@@ -72,7 +75,8 @@ def change( ):
 		if new_data['id'] == item['id']:
 			item['content'] = new_data['content']
 			set_file(file)
-			return "OK", 200
+			data = get_file()
+			return jsonify(data), 200
 	return 'id不存在：id=%s' % (id), 404
 	
 if __name__ == '__main__':
