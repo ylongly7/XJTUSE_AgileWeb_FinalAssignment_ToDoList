@@ -10,12 +10,16 @@
     "jquery": "^3.5.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "chai": "^4.2.0",
+    "lodash": "^4.17.15",
+    "mocha": "^7.1.1",
+    "puppeteer": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "mocha test/bootstrap.js --recursive test",
     "eject": "react-scripts eject",
     "prebuild": "rm -rf ../backend/templates/index.html && rm -rf ../backend/static/",
     "postbuild": "mv build/index.html ../backend/templates/ &&  mv build/static/ ../backend/static/ &&  mv build/manifest.json ../backend/templates/"
