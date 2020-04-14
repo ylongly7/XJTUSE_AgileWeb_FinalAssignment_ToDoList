@@ -7,64 +7,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 
-// function App() {
-// 	//演示api
-// 	if (true) {
-// 		//全部todolist
-// 		$.ajax({
-// 			"type": 'GET',
-// 			"url": "api/tasks",
-// 			"success": (resbody) => {
-// 				console.log(resbody)
-// 			},
-// 			"error": (err) => {
-// 				console.log(err, err.status, err.responseText)
-// 			}
-// 		});
-// 		//添加todoitem 1586658034.2166107
-// 		/*  $.ajax(
-// 		  {
-// 			"type": 'POST',
-// 			"url":"api/tasks",
-// 			"data":JSON.stringify({"content":"newItem"}),
-// 			"success":(resbody)=>{
-// 			  console.log(resbody)
-// 			},
-// 			"error":(err)=>{
-// 				console.log(err,err.status,err.responseText)
-// 			}
-// 		  }
-// 	  ); */
-
-// 		//删除todoitem url格式：api/tasks/id
-// 		$.ajax({
-// 			"type": 'DELETE',
-// 			"url": "api/tasks/" + "1586658034.2166107",
-// 			"success": (resbody) => {
-// 				console.log(resbody)
-// 			},
-// 			"error": (err) => {
-// 				console.log(err, err.status, err.responseText)
-// 			}
-// 		});
-
-// 		//修改todoitem  
-// 		$.ajax({
-// 			"type": 'PUT',
-// 			"url": "api/tasks/",
-// 			"data": JSON.stringify({
-// 				"content": "231232",
-// 				"id": "1586486287.794215"
-// 			}),
-// 			"success": (resbody) => {
-// 				console.log(resbody)
-// 			},
-// 			"error": (err) => {
-// 				console.log(err, err.status, err.responseText)
-// 			}
-// 		});
-
-// 	}
 class App extends Component {
 	constructor(props) {
 		super(props);
