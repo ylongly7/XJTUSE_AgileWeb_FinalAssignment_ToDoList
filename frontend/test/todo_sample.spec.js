@@ -1,4 +1,4 @@
-describe("test <mocha></mocha> and puppeteer", function () {
+describe("敏捷web开发测试", function () {
     let page;
     before(async function () {
         page = await browser.newPage();
@@ -30,6 +30,19 @@ describe("test <mocha></mocha> and puppeteer", function () {
         let UndoneItems = await page.waitFor('.table tbody');
         const ExpectUndoItem = await page.evaluate(UndoneItems => UndoneItems.lastChild.querySelector('input').getAttribute("placeholder"), UndoneItems);
         expect(ExpectUndoItem).to.eql('change');
-
+    })
+    it("delete the new todo item", async function (){
+        // 得到倒数第二个todo项目的值
+        let UndoneItems = await page.waitFor('.table tbody');
+        const penultTodoItem = await page.evaluate(function getpenultTodoItem(UndoneItems){
+            penultIndex = UndoneItems.childNodes.length-2;
+            return UndoneItems.childNodes[penultIndex].querySelector('input').getAttribute("placeholder")
+        },UndoneItems )
+        // 删除最后一个todo item
+        await page.click(".table tbody tr:last-child td:nth-last-child(2) button",{delay: 500})
+        // 判断目前最后一个todo的值是不是刚才倒数第二个todo的值
+        let newUndoneItems = await page.waitFor('.table tbody');
+        const lastTodoItem = await page.evaluate(newUndoneItems => newUndoneItems.lastChild.querySelector('input').getAttribute("placeholder"), newUndoneItems);
+        expect(lastTodoItem).to.eql(penultTodoItem)
     })
 })
