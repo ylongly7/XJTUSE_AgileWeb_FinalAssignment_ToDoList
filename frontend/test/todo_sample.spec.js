@@ -21,4 +21,15 @@ describe("test <mocha></mocha> and puppeteer", function () {
         const ExpectUndoItem = await page.evaluate(UndoneItems => UndoneItems.lastChild.querySelector('input').getAttribute("placeholder"), UndoneItems);
         expect(ExpectUndoItem).to.eql('test add todo item');
     })
+    it("change the new todo item", async function (){
+        // 修改上面提交的todo项目的值
+        await page.click(".table tbody tr:last-child input",{delay:500});
+        await page.type(".table tbody tr:last-child input","change",{delay: 50});
+        await page.click(".table tbody tr:last-child td:last-child button",{delay: 500})
+        // 检测table中最后一项是否为修改后的todo项目
+        let UndoneItems = await page.waitFor('.table tbody');
+        const ExpectUndoItem = await page.evaluate(UndoneItems => UndoneItems.lastChild.querySelector('input').getAttribute("placeholder"), UndoneItems);
+        expect(ExpectUndoItem).to.eql('change');
+
+    })
 })
